@@ -3,8 +3,7 @@ description: 'A github action to scan repositories Dockerfile'
 outputs:
   dockerfiles:
     description: 'List of dockerfiles'
-    # need to specify the extra `value` field for `composite` actions
-    value: ${{ steps.execute_scan.outputs.num_squared }}
+    value: ${{ steps.execute_scan.outputs.dockerfiles }}
 runs:
   using: 'composite'
   steps:
