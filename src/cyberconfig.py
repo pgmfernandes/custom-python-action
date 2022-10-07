@@ -21,8 +21,11 @@ class CyberManager:
         url = f"https://api.github.com/repos/{CyberManager.config_org_name}/{CyberManager.config_repo_name}/contents/{owner_and_repo_name}.json"
         print(f"URL: {url}")
         response = self.session.get(url)
-        print(f"Response: {response.status_code}")
         if response.status_code == 200:
             config = response.json()
             return config
+        elif response.status_code == 401:
+            print("::debug::Github did not authorized this request. You probably set a Github PAT not valid.")
+        elif response.status_code == 404:
+            print("::debug::Repository not found.")
         return None
