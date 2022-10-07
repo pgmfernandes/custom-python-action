@@ -1,5 +1,10 @@
 name: 'Scan github action'
 description: 'A github action to scan repositories Dockerfile'
+inputs:
+  GH_TOKEN:
+    description: 'A Github PAT'
+    required: true
+    
 outputs:
   dockerfiles:
     description: 'List of dockerfiles'
@@ -7,6 +12,8 @@ outputs:
 runs:
   using: docker # we are saying this action will run on docker
   image: 'Dockerfile' # we will use our own Dockerfile to build an image and run it.
+  env:
+    GH_TOKEN: ${{ inputs.GH_TOKEN }}
 
 # for publishing purposes
 branding: #generates a logo for our action
