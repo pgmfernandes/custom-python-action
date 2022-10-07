@@ -9,7 +9,6 @@ class CyberManager:
 
     def __init__(self, github_auth):
         self.session = requests.Session()
-        print("Token github: " + github_auth)
         self.session.verify = False
         self.session.headers.update({
             'Authorization': f"Bearer {github_auth}",
@@ -22,8 +21,8 @@ class CyberManager:
         url = f"https://api.github.com/repos/{CyberManager.config_org_name}/{CyberManager.config_repo_name}/contents/{owner_and_repo_name}.json"
         print(f"URL: {url}")
         response = self.session.get(url)
-        config = None
-        print(response.status_code)
+        print(f"Response: {response.status_code}")
         if response.status_code == 200:
             config = response.json()
-        return config
+            return config
+        return None
