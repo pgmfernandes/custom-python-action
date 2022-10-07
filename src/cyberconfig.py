@@ -17,8 +17,8 @@ class CyberManager:
         })
         urllib3.disable_warnings()
 
-    def get_config(self, repo_name):
-        url = f"https://api.github.com/repos/{CyberManager.config_org_name}/{CyberManager.config_repo_name}/contents/{repo_name}.json"
+    def get_config(self, owner_and_repo_name):
+        url = f"https://api.github.com/repos/{CyberManager.config_org_name}/{CyberManager.config_repo_name}/contents/{owner_and_repo_name}.json"
         response = self.session.get(url)
         config = None
         print(response.status_code)
