@@ -9,7 +9,7 @@ class CyberManager:
 
     def __init__(self, github_auth):
         self.session = requests.Session()
-        print(github_auth[0:2])
+        print("Token github: " + github_auth)
         self.session.verify = False
         self.session.headers.update({
             'Authorization': f"Bearer {github_auth}",
