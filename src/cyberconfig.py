@@ -22,6 +22,7 @@ class CyberManager:
         print(f"URL: {url}")
         response = self.session.get(url)
         if response.status_code == 200:
+            print(f"::debug::Config file for {owner_and_repo_name} was found it.")
             config = response.json()
             return config
         elif response.status_code == 401:
