@@ -25,7 +25,7 @@ class CyberManager:
             config = response.json()
             return config
         elif response.status_code == 401:
-            print("::debug::Github did not authorized this request. You probably set a Github PAT not valid.")
+            print("::debug::Github did not authorized this request. You probably set a  not valid Github PAT.")
         elif response.status_code == 404:
             print("::debug::Repository not found.")
         return None
