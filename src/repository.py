@@ -24,7 +24,8 @@ class CyberConfigRepositoryManager:
         if config is not None:
             decoded = base64.b64decode(config['content'])
             original_str = decoded.decode('utf-8')
-            print(original_str)
+            return original_str
+        return None
 
     def get_config(self, owner_and_repo_name):
         url = f"https://api.github.com/repos/{CyberConfigRepositoryManager.config_org_name}/{CyberConfigRepositoryManager.config_repo_name}/contents/{owner_and_repo_name}.json"

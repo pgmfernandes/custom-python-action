@@ -18,12 +18,11 @@ def init():
     c.execute_configuration()
 
 
-# if __name__ == "__main__":
-#     os.environ[GH_TOKEN_STR] = sys.argv[1]
-#     os.environ[GITHUB_REPOSITORY_STR] = "pgmfernandes/using-custom-python-action"
-#     init()
-
-try:
-    init()
-except Exception as err:
-    print("::error file=main.py::" + err.__str__())
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        os.environ[GH_TOKEN_STR] = sys.argv[1]
+        os.environ[GITHUB_REPOSITORY_STR] = "pgmfernandes/using-custom-python-action"
+    try:
+        init()
+    except Exception as err:
+        print("::error file=main.py::" + err.__str__())
