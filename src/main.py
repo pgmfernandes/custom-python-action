@@ -1,12 +1,19 @@
 import os
-from cyberconfig import *
+import sys
 
-auth = os.environ['GH_TOKEN']
-config_manager = CyberManager(github_auth=auth)
-github_repository = os.environ['GITHUB_REPOSITORY']
-print(f"[{github_repository}] Busca de arquivo específico de configuração")
-config = config_manager.get_config(owner_and_repo_name=github_repository)
-print(f"[{github_repository}]", config)
+from src.controller import ConfigRepositoryController
 
-github_repository = "test-" + github_repository
-print(f"::set-output name=dockerfiles::{github_repository}")
+GH_TOKEN_STR = "GH_TOKEN"
+GITHUB_REPOSITORY_STR = "GITHUB_REPOSITORY"
+
+
+def init():
+    auth = os.environ[GH_TOKEN_STR]
+    github_repository = os.environ[GITHUB_REPOSITORY_STR]
+    c = ConfigRepositoryController(github_auth=auth, github_reposiroty=github_repository)
+    c.execute_configuration()
+
+# if __name__ == "__main__":
+#     os.environ[GH_TOKEN_STR] = sys.argv[1]
+#     os.environ[GITHUB_REPOSITORY_STR] = "pgmfernandes/using-custom-python-action"
+#     init()
