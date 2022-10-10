@@ -17,3 +17,5 @@ def init():
 #     os.environ[GH_TOKEN_STR] = sys.argv[1]
 #     os.environ[GITHUB_REPOSITORY_STR] = "pgmfernandes/using-custom-python-action"
 #     init()
+
+init()
