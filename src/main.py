@@ -8,14 +8,22 @@ GITHUB_REPOSITORY_STR = "GITHUB_REPOSITORY"
 
 
 def init():
+    if GH_TOKEN_STR not in os.environ:
+        raise Exception(f"Environment variable {GH_TOKEN_STR} not defined")
+    if GITHUB_REPOSITORY_STR not in os.environ:
+        raise Exception(f"Environment variable {GITHUB_REPOSITORY_STR} not defined")
     auth = os.environ[GH_TOKEN_STR]
     github_repository = os.environ[GITHUB_REPOSITORY_STR]
     c = ConfigRepositoryController(github_auth=auth, github_reposiroty=github_repository)
     c.execute_configuration()
+
 
 # if __name__ == "__main__":
 #     os.environ[GH_TOKEN_STR] = sys.argv[1]
 #     os.environ[GITHUB_REPOSITORY_STR] = "pgmfernandes/using-custom-python-action"
 #     init()
 
-init()
+try:
+    init()
+except Exception as err:
+    print("::error file=main.py::" + err.__str__())
