@@ -2,6 +2,8 @@ import base64
 import requests
 import urllib3
 
+from src.model import ConfigPipeline
+
 
 class CyberConfigRepositoryManager:
     config_org_name = "pgmfernandes"
