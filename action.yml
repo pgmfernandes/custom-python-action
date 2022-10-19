@@ -6,11 +6,19 @@ inputs:
     required: true
     
 outputs:
-  dockerfiles:
-    description: 'List of dockerfiles'
-    value: ${{ steps.execute_scan.outputs.dockerfiles }}
+  ENABLED:
+    description: 'Enabled security check'
+    value: ${{ steps.configuring_pipeline.outputs.ENABLED }}
+  THRESHOLD:
+    description: 'Threhold to break pipeline'
+    value: ${{ steps.configuring_pipeline.outputs.THRESHOLD }}
+  ORGANIZATION:
+    description: 'Threhold to break pipeline'
+    value: ${{ steps.configuring_pipeline.outputs.THRESHOLD }}
+
 runs:
   using: docker # we are saying this action will run on docker
+  name: configuring_pipeline
   image: 'Dockerfile' # we will use our own Dockerfile to build an image and run it.
   env:
     GH_TOKEN: ${{ inputs.GH_TOKEN }}

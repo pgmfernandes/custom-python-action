@@ -1,32 +1,35 @@
 import json
 
-
-class SastConfig:
-    def __init__(self, json_obj):
-        self.enabled = json_obj['enabled']
+from src.utility import get_json_property
 
 
-class SecretConfig:
-    def __init__(self, json_obj):
-        self.enabled = json_obj['enabled']
+class ScanConfig:
+    def __init__(self, json_obj, scan_name):
+        custom_obj = get_json_property(json_obj, scan_name)
+        self.enabled = get_json_property(custom_obj, "enabled")
+        self.custom_payload = get_json_property(custom_obj, "custom_payload")
+        self.exception = get_json_property(custom_obj, "exception")
 
 
 class ConfigPipeline:
     def __init__(self, json_obj):
-        self.org = json_obj['org']
-        self.name = json_obj['name']
-        self.sast = SastConfig(json_obj['sast'])
-        self.secret = SecretConfig(json_obj['secret'])
+        repository = json_obj['repository']
+        self.org = repository['organization']
+        self.name = repository['name']
+        self.history = json_obj['history']
+        self.config = json_obj['config']
 
-    def is_sast_enabled(self):
-        if self.sast is not None:
-            return self.sast.enabled
-        return False
+    def get_secure_task(self, task_name):
+        if self.config is not None and task_name in self.config:
+            return self.config[task_name]
+        return None
 
-    def is_secret_enabled(self):
-        if self.secret is not None:
-            return self.secret.enabled
-        return False
+    @staticmethod
+    def get_custom_payload(task):
+        if 'custom_payload' in task:
+            return task['custom_payload']
+        return None
+
 
 class ConfigPipelineHelper:
     @staticmethod
